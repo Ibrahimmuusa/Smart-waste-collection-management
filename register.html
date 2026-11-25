@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZSEPA | Register</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <div class="brand">
+      <div class="brand-logo">♻</div>
+      <h1>ZSEPA</h1>
+      <p>Create your waste management account</p>
+    </div>
+
+    <h2>Create Account</h2>
+
+    <form id="registerForm">
+      <label>Full Name</label>
+      <input type="text" id="fullName" placeholder="Enter full name" required>
+
+      <label>Email Address</label>
+      <input type="email" id="registerEmail" placeholder="Enter email address" required>
+
+      <label>Phone Number</label>
+      <input type="tel" id="registerPhone" placeholder="Enter phone number" required>
+
+      <label>Residential Address</label>
+      <input type="text" id="registerAddress" placeholder="Enter your address" required>
+
+      <label>Password</label>
+      <input type="password" id="registerPassword" minlength="6" placeholder="At least 6 characters" required>
+
+      <label>Confirm Password</label>
+      <input type="password" id="confirmPassword" minlength="6" placeholder="Confirm password" required>
+
+      <button class="btn primary full" type="submit">Create Account</button>
+    </form>
+
+    <p class="center">Already registered? <a href="index.html">Login here</a></p>
+    <p id="registerMessage" class="message"></p>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
