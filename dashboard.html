@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZSEPA | Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/map.js"></script>
+<body class="dashboard-page">
+
+  <aside class="sidebar">
+    <div class="side-brand">♻ ZSEPA</div>
+    <p class="side-caption">WASTE MANAGEMENT</p>
+
+    <a href="#overview" class="nav-link">▦ Overview</a>
+    <a href="#schedule" class="nav-link">▣ Collection Scheduling</a>
+    <a href="#complaints" class="nav-link">✉ Complaints</a>
+    <a href="#routes" class="nav-link">⌖ Route Monitoring</a>
+    <a href="#reports" class="nav-link admin-only">▤ Reports</a>
+
+    <button id="logoutBtn" class="btn logout full">Log Out</button>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ZAMFARA STATE ENVIRONMENTAL PROTECTION AGENCY</p>
+        <h1 id="welcomeTitle">Dashboard</h1>
+      </div>
+      <div class="profile">
+        <div class="profile-icon">♙</div>
+        <div>
+          <strong id="accountName">Account</strong>
+          <small id="accountRole">User</small>
+        </div>
+      </div>
+    </header>
+
+    <section id="overview" class="section">
+      <div class="section-heading">
+        <div>
+          <h2>Overview</h2>
+          <p class="muted">Monitor waste collection activities.</p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>Total Collection Requests</span>
+          <strong id="requestCount">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Total Complaints</span>
+          <strong id="complaintCount">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Pending Requests</span>
+          <strong id="pendingCount">0</strong>
+        </div>
+        <div class="stat-card admin-only">
+          <span>Registered Users</span>
+          <strong id="userCount">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule" class="section panel">
+      <h2>Collection Scheduling</h2>
+      <p class="muted">Request waste collection at your location.</p>
+
+      <form id="scheduleForm" class="form-grid">
+        <div>
+          <label>Collection Address</label>
+          <input id="collectionAddress" placeholder="Enter your location" required>
+        </div>
+
+        <div>
+          <label>Waste Type</label>
+          <select id="wasteType" required>
+            <option value="">Select waste type</option>
+            <option>Household Waste</option>
+            <option>Commercial Waste</option>
+            <option>Plastic Waste</option>
+            <option>Organic Waste</option>
+            <option>Construction Waste</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Preferred Collection Date</label>
+          <input type="date" id="collectionDate" required>
+        </div>
+
+        <div>
+          <label>Additional Details</label>
+          <input id="collectionDetails" placeholder="Optional details">
+        </div>
+
+        <button class="btn primary" type="submit">Submit Collection Request</button>
+      </form>
+
+      <h3 class="table-title">Collection Requests</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Waste Type</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th class="admin-only">Action</th>
+            </tr>
+          </thead>
+          <tbody id="requestsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="complaints" class="section panel">
+      <h2>Complaint Management</h2>
+      <p class="muted">Report waste disposal and collection problems.</p>
+
+      <form id="complaintForm" class="form-grid">
+        <div>
+          <label>Complaint Subject</label>
+          <input id="complaintSubject" placeholder="Enter subject" required>
+        </div>
+
+        <div>
+          <label>Location</label>
+          <input id="complaintLocation" placeholder="Enter affected location" required>
+        </div>
+
+        <div class="wide">
+          <label>Complaint Description</label>
+          <textarea id="complaintDescription" placeholder="Describe the issue..." required></textarea>
+        </div>
+
+        <button class="btn primary" type="submit">Submit Complaint</button>
+      </form>
+
+      <h3 class="table-title">Submitted Complaints</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Location</th>
+              <th>Submitted By</th>
+              <th>Status</th>
+              <th class="admin-only">Action</th>
+            </tr>
+          </thead>
+          <tbody id="complaintsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="routes" class="section panel">
+      <h2>Route Monitoring</h2>
+      <p class="muted">Collection route information and designated service areas.</p>
+<div class="map-heading">
+    <h3>Gusau Waste Collection Map</h3>
+    <p>Interactive map showing the Gusau service area.</p>
+</div>
+
+<div id="gusauMap"></div>
+      <div class="route-card">
+        <div class="route-icon">⌖</div>
+        <div>
+          <h3>Gusau Central Route</h3>
+          <p>Central Gusau collection areas and surrounding locations.</p>
+          <span class="status">Designated Route</span>
+        </div>
+      </div>
+
+      <div class="route-card">
+        <div class="route-icon">⌖</div>
+        <div>
+          <h3>Residential Collection Route</h3>
+          <p>Residential neighbourhoods and designated collection points.</p>
+          <span class="status">Designated Route</span>
+        </div>
+      </div>
+
+      <p class="note">These are demonstration route descriptions, not live GPS tracking.</p>
+    </section>
+
+    <section id="reports" class="section panel admin-only">
+      <h2>System Reports</h2>
+      <p class="muted">Download the collection request records.</p>
+      <button class="btn primary" id="exportBtn">Download Collection Report (CSV)</button>
+    </section>
+
+    <p id="dashboardMessage" class="message"></p>
+
+    <footer class="dashboard-footer">
+      ZSEPA Smart Waste Collection Management System © 2026
+    </footer>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
